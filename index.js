@@ -13,12 +13,14 @@ const io = new Server(server, {
 }});
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  // assign random name to socket
+  socket.username = Math.random().toString(36).substring(7);
+  console.log('a user connected', socket.username);
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
   socket.on('chat message', (msg) => {
-    io.emit('chat message', msg);
+    io.emit('chat message', socket.username, msg);
   });
 });
 
