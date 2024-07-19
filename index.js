@@ -16,12 +16,15 @@ io.on('connection', (socket) => {
   // assign random name to socket
   socket.username = Math.random().toString(36).substring(7);
   console.log('a user connected', socket.username);
+  // event listeners
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
   socket.on('chat message', (msg) => {
     io.emit('chat message', socket.username, msg);
   });
+  // send message directly to this socket it's randomly generated generated username
+  io.emit('username', socket.username);
 });
 
 const PORT = process.env.PORT || 3000;
