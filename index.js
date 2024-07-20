@@ -7,6 +7,7 @@ const server = http.createServer(app);
 
 // Configure Socket.IO to allow CORS
 const io = new Server(server, {
+  path: '/chat_socket/socket.io',
   cors: {
     origin: "http://localhost:5173", // Allow requests from this origin
     methods: ["GET", "POST"] // Allow these HTTP methods
@@ -24,7 +25,7 @@ io.on('connection', (socket) => {
     io.emit('chat message', socket.username, msg);
   });
   // send message directly to this socket it's randomly generated generated username
-  io.emit('username', socket.username);
+  socket.emit('username', socket.username);
 });
 
 const PORT = process.env.PORT || 3000;
