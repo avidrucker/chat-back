@@ -22,10 +22,10 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
   socket.on('chat message', (msg) => {
-    io.emit('chat message', socket.username, msg);
+    io.emit('chat message', socket.username, msg); // io emits to the entire server
   });
   // send message directly to this socket it's randomly generated generated username
-  socket.emit('username', socket.username);
+  socket.emit('username', socket.username); // socket emits to just 1 socket 
 });
 
 const PORT = process.env.PORT || 3000;
